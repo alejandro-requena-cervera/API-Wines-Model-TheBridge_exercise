@@ -13,5 +13,53 @@
     <h1><div style='color:maroon'>Welcome to the Wine Model Predictor</div></h1>
 </header>
 
+<table border="0" align="center" style="table-layout: fixed; width: 50%;">
+    <tr>
+        <td><a href="/api/v0/get_predict">
+            <button>Take Predictions [v0]</button>
+            </a></td>
+        <td><label>This API route accepts input parameters, performs a prediction 
+            using a machine learning model, and returns the predicted wine type 
+            in JSON format. If any input is missing, it renders an error page. 
+            The input data is also stored in a database for logging purposes.</label></td>
+    </tr>
+    <tr>
+        <td><a href="/api/v1/get_predict">
+            <button>Take Predictions [v1]</button>
+            </a></td>
+        <td><label>This API route handles both GET and POST requests. For POST requests, 
+            it accepts input data, makes predictions using a machine learning model, logs 
+            the input and prediction, and renders a template with the input and prediction 
+            results. For GET requests, it simply renders a template.</label></td>
+    </tr>
+    <tr>
+        <td><a href="/api/v0/get_database">
+            <button>View Databases [v0]</button>
+            </a></td>
+        <td><label>This API route handles both GET and POST requests. For POST requests, 
+            it accepts a database name, checks if it exists, and returns the database content 
+            as JSON. For GET requests, it renders a template displaying a list of available 
+            databases.</label></td>
+    </tr>
+    <tr>
+        <td><a href="/api/v1/get_database">
+            <button>View Databases [v1]</button>
+            </a></td>
+        <td><label>This API route manages database access, displaying data for existing 
+            databases via GET requests and handling POST requests to fetch and display 
+            specific database content or show an error if the database doesn't exist.</label></td>
+    </tr>
+    <tr>
+        <td><a href="/api/v0/delete_database">
+            <button>Delete Database</button>
+            </a></td>
+        <td><label>This API route handles the deletion of databases. It responds to both GET 
+            and POST requests. For POST requests, it checks for confirmation and deletes the 
+            specified database, if confirmed. For GET requests, it displays a list of 
+            available databases.</label></td>
+    </tr>
+    
+</table>
+
 </body>
 </html>
