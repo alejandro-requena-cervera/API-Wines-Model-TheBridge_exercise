@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <title>API EXERCISE - DANGER ZONE</title>
+        <meta charset="utf-8" />
+    </head>
+
+<body>
+
+    <header>
+        <h1><div style='color:red'>DANGER ZONE!</div></h1>
+        <h2><div style='color:maroon'>Do you want to delete a database?</div></h2>
+        <ul>
+            {% if list_databases|length > 1 %}
+                {% for database in list_databases %}
+                    {% if database != 'wines' %}    <!-- No se puede borrar la base de datos principal -->
+                        <li>{{ database }}</li>
+                    {% endif %}
+                {% endfor %}
+            {% else %}
+                <li>There are no databases available for deletion.</li>
+            {% endif %}
+        </ul>
+    </header>
+
+    <form id='myForm' action="/api/v0/delete_database" method="POST">
+        <input type="string" id="delete" name="delete">
+        <input type="submit"  id="submitButton" value="DELETE">
+    </form>
+
+    <br>
+
+    {% if request.method == 'POST' %}
+        {% if confirmation == None %}
+            <form action="/api/v0/delete_database" method="POST"
+            style="display: flex; justify-content: center;">
+                <table>
+                    <tr>
+                        <td><label style="color:maroon;"><h2>Do you want to delete the 
+                            "{{name_datab}}" database?</h2></label></td>
+                    </tr>
+                    <tr>
+                        <td>
+                        <input type="hidden" id="confirm" name="confirm" value={{name_datab}}>
+                        <input type="hidden" id="delete" name="delete" value={{name_datab}}>
+                        <input type="submit" id="submitButton" value="CONFIRM TO DELETE DATABASE" 
+                        style="padding: 5px; font-size: 18px; width: 100%; color:red; cursor: pointer">
+                        </td>
+                    </tr>
+                </table>    
+            </form>
+        {% endif %}
+    {% endif %}
+
+</body>
+</html>

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <title>API EXERCISE - DATABASES</title>
+        <meta charset="utf-8" />
+    </head>
+
+<body>
+
+    <header>
+        <h1><div style='color:maroon'>Choose the database you want to view</div></h1>
+        <ul>
+            {% for database in list_databases %}
+                <li>{{ database }}</li>
+            {% endfor %}
+        </ul>
+    </header>
+
+    <form id='myForm' action="/api/v1/get_database" method="POST">
+        <input type="string" id="datab" name="datab">
+        <input type="submit"  id="submitButton" value="Send it">
+    </form>
+
+    <br>
+
+    {% if request.method == 'POST' %}
+        {% if name_datab != 'wines' %}
+            <form action="/api/v0/delete_database" method="POST"
+            style="display: flex; justify-content: flex-end; width: 75%;">
+                <input type="hidden" id="delete" name="delete" value={{name_datab}}>
+                <input type="submit" id="submitButton" value="DELETE DATABASE" style="padding: 5px; 
+                font-size: 18px; width: 25%; color:red; cursor: pointer">
+            </form>
+        {% endif %}
+
+        <br>
+    
+        <table border="1" align="center" style="table-layout: fixed; width: 50%;">
+            <tr>
+                <th># Sample</th>
+                <th>Alcohol</th>
+                <th>Malic Acid</th>
+                <th>Ash</th>
+                <th>Alcalinity Of Ash</th>
+                {% if name_datab != 'wines' %}
+                    <th>Prediction</th>
+                {% endif %}
+            </tr>
+        {% for database in dict_datab %}
+            <tr>
+                <td>{{ loop.index }}</td>
+                <td>{{database['alcohol']}}</td>
+                <td>{{database['malic_acid']}}</td>
+                <td>{{database['ash']}}</td>
+                <td>{{database['alcalinity_of_ash']}}</td>
+                {% if name_datab != 'wines' %}
+                    <td>{{database['prediction']}}</td>
+                {% endif %}
+            </tr>
+        {% endfor %}
+        </table>
+    {% endif %}
+
+</body>
+</html>

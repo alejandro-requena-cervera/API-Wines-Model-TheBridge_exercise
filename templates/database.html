@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <title>API EXERCISE - DATABASES</title>
+        <meta charset="utf-8" />
+    </head>
+
+<body>
+
+    <header>
+        <h1><div style='color:maroon'>Choose the database you want to view</div></h1>
+        <ul>
+            {% for database in list_databases %}
+                <li>{{ database }}</li>
+            {% endfor %}
+        </ul>
+    </header>
+
+    <form id='myForm' action="/api/v0/get_database" method="POST">
+        <input type="string" id="datab" name="datab">
+        <input type="submit"  id="submitButton" value="Send it">
+    </form>
+
+</body>
+</html>
