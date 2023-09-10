@@ -3,7 +3,6 @@ import pandas as pd
 from flask import Flask, jsonify, render_template, request
 from sqlalchemy import create_engine, MetaData
 import json
-# from sklearn.metrics import accuracy_score
 import pickle
 
 
@@ -38,6 +37,7 @@ target_dict = {
     1: 'Chardonnay',    # Class_1
     2: 'Syrah'  # Class_2
 }
+
 
 @app.route('/', methods=['GET'])
 def home():
@@ -121,9 +121,6 @@ def get_database_v1():
                                name_datab=name_datab)
     
     return render_template('database_v1.html', list_databases=list_databases())
-
-
-# Puedo añadir a la pagina principal una breve descripción o añadirlo en un api nueva, como ""HOW IT WORKS""
 
 
 @app.route('/api/v0/delete_database', methods=['GET', 'POST'])
