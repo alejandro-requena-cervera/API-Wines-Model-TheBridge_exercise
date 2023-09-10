@@ -2,14 +2,21 @@ import numpy as np
 import pandas as pd
 from flask import Flask, jsonify, render_template, request
 from sqlalchemy import create_engine, MetaData
+import json
 # from sklearn.metrics import accuracy_score
 import pickle
 
 
 app = Flask(__name__)
 
+# importo las credenciales de la base de datos
+with open('./templates/config.json', 'r') as file:
+    config = json.load(file)
+    db_config = config['db_conn']
+# creo la estructura de la url con las credenciales de la base de datos
+url = f"postgresql://{db_config['user']}:{db_config['passw']}@{db_config['host']}:{db_config['port']}"
 # llamo a la base de datos ya creada
-engine = create_engine('sqlite:///drinks.db')
+engine = create_engine(url)
 # "leo" la tabla de la base de datos como DataFrame
 df_wines = pd.read_sql_table('wines', con=engine)
 # Leo las tablas en la bases de datos
@@ -32,8 +39,12 @@ target_dict = {
     2: 'Syrah'  # Class_2
 }
 
-
 @app.route('/', methods=['GET'])
+def home():
+    return render_template('index.html')
+
+
+@app.route('/api/v0/get_predict', methods=['GET'])
 def get_predict_v0():
     alcohol = request.args.get('alcohol', None)
     malic_acid = request.args.get('malic_acid', None)

@@ -1,0 +1,8 @@
+{
+    "db_conn": {
+        "user": "postgres",
+        "passw": "admin1234",
+        "host": "database.chjosrwkauay.us-east-1.rds.amazonaws.com",
+        "port": "5432"
+    }
+}
