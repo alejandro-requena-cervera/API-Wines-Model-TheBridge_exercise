@@ -44,17 +44,15 @@ def home():
     return render_template('index.html')
 
 
-@app.route('/api/v0/get_predict', methods=['GET'])
+@app.route('/api/v0/get_predict', methods=['POST'])
 def get_predict_v0():
-    alcohol = request.args.get('alcohol', None)
-    malic_acid = request.args.get('malic_acid', None)
-    ash = request.args.get('ash', None)
-    alcalinity_of_ash = request.args.get('alcalinity_of_ash', None)
+    data = request.get_json()
 
-    samples = [alcohol, malic_acid, ash, alcalinity_of_ash]
+    samples = [data['alcohol'], data['malic_acid'], data['ash'], data['alcalinity_of_ash']]
 
     if None in samples:
-        return render_template('error404.html')
+        response = f'Please, include the features in the request body with the this keys: "alcohol", "malic_acid", "ash" & "alcalinity_of_ash".'
+        return jsonify(response), 400
 
     array = np.array(samples).astype(float).reshape(1, -1)
     prediction = model.predict(array)
@@ -63,10 +61,12 @@ def get_predict_v0():
     df_samples['prediction'] = prediction
     df_samples.to_sql('samples', con=engine, if_exists='append', index=False)
 
-    response = '<div style="color:maroon"><u>Type Of Wine:</u></div><br>'
-    result = f'<div style="color:maroon;font-size:27">{target_dict[int(prediction)]}</div>'
+    dict_pred = {
+        'Inputs': samples,
+        'Prediction': target_dict[int(prediction)]
+    }
 
-    return response + result
+    return jsonify(dict_pred)
 
 
 @app.route('/api/v1/get_predict', methods=['GET', 'POST'])
@@ -92,18 +92,17 @@ def get_predict_v1():
     return render_template('predictions.html')
 
 
-@app.route('/api/v0/get_database', methods=['GET', 'POST'])
+@app.route('/api/v0/get_database', methods=['POST'])
 def get_database_v0():
-    if request.method == 'POST':
-        name_datab = request.form['datab']
+    datab = request.get_json()
+    name_datab = datab['datab']
 
-        if name_datab not in list_databases():
-            return render_template('error404.html')
+    if name_datab not in list_databases():
+        response = f'Please, include the database {list_databases()} in the request body with the "datab" key.'
+        return jsonify(response), 400
 
-        dict_datab = pd.read_sql_table(name_datab, con=engine).to_dict('records')
-        return jsonify(dict_datab)
-    
-    return render_template('database.html', list_databases=list_databases())
+    dict_datab = pd.read_sql_table(name_datab, con=engine).to_dict('records')
+    return jsonify(dict_datab)
 
 
 @app.route('/api/v1/get_database', methods=['GET', 'POST'])

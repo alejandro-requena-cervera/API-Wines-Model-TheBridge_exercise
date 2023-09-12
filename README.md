@@ -15,28 +15,28 @@ This application is an exercise to test the knowledge acquired in class.
 
 ## Home Page
 <div style="overflow: auto;">
-    <img align="right" width="300" src="repo_mayo_23 copia/4-Data_Engineering/1-APIs/API_weekend_homework/templates/img/HomePage.png" alt="Home Page" />
+    <img align="right" width="300" src="./templates/img/HomePage.png" alt="Home Page" />
     The homepage has an index with a short explanation of what each API does. The result is returned as JSON in version 0. Version 1 collects information via a form. The result is displayed in HTML.
 </div>
 
 
 ## Take Predictions
 <div style="overflow: auto;">
-    <img align="right" width="300" src="repo_mayo_23 copia/4-Data_Engineering/1-APIs/API_weekend_homework/templates/img/TakePredictions.png" alt="Take Predictions" />
+    <img align="right" width="300" src="./templates/img/TakePredictions.png" alt="Take Predictions" />
     Once the variables have been entered, they are passed to the trained model to make a prediction. Displays the result of the prediction and the inputs entered.
 </div>
 
 
 ## View Database
 <div style="overflow: auto;">
-    <img align="right" width="300" src="repo_mayo_23 copia/4-Data_Engineering/1-APIs/API_weekend_homework/templates/img/ViewDatabase.png" alt="View Database" />
+    <img align="right" width="300" src="./templates/img/ViewDatabase.png" alt="View Database" />
     It is necessary to specify the database to be viewed. This is returned as JSON or HTML depending on the version. The database containing the samples and their predictions can be deleted from the same page (v1).
 </div>
 
 
 ## Delete Database
 <div style="overflow: auto;">
-    <img align="right" width="300" src="repo_mayo_23 copia/4-Data_Engineering/1-APIs/API_weekend_homework/templates/img/DeleteDatabase.png" alt="Delete Database" />
+    <img align="right" width="300" src="./templates/img/DeleteDatabase.png" alt="Delete Database" />
     You must enter the database you wish to delete. The application will ask for confirmation before deleting (version 1 only).
 </div>
 
